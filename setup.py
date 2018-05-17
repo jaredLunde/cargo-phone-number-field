@@ -3,7 +3,7 @@ import os
 import uuid
 from setuptools import setup, Extension
 from pkgutil import walk_packages
-from distutils.command.build_ext import build_ext
+
 
 pathname = os.path.dirname(os.path.realpath(__file__))
 
@@ -29,14 +29,6 @@ def find_packages(prefix=""):
         if ispkg:
             yield name
 
-
-class _build_ext(build_ext):
-    def run(self):
-        build_ext.run(self)
-
-    def build_extension(self, ext):
-        build_ext.build_ext
-
 setup(
     name=PKG_NAME,
     version=PKG_VERSION,
@@ -46,7 +38,5 @@ setup(
     url='https://github.com/jaredlunde/cargo_phone_number',
     license="MIT",
     install_requires=list(install_reqs),
-    packages=list(find_packages(PKG)),
-    ext_modules=extensions,
-    cmdclass=dict(build_ext=_build_ext)
+    packages=list(find_packages(PKG))
 )
